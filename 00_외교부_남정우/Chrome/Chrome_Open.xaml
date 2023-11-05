@@ -84,7 +84,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" BrowserType="{x:Null}" CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" DisplayName="외교부사이트 열기 | Open Browser" sap:VirtualizedContainerService.HintSize="484,393.2" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="[in_Config(&quot;URL&quot;).ToString]">
+    <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="외교부사이트 열기 | Open Browser" sap:VirtualizedContainerService.HintSize="484,393.2" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="[in_Config(&quot;URL&quot;).ToString]">
       <ui:OpenBrowser.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>

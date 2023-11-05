@@ -1,13 +1,17 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Chrome_ReadRaign" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="C" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
-    <x:Property Name="out_dt_TotalSheet" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="out_monthTotal" Type="OutArgument(x:Double)" />
+    <x:Property Name="io_dt_TotalSheet" Type="InOutArgument(sd:DataTable)" />
   </x:Members>
+  <this:C.in_Config>
+    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
+  </this:C.in_Config>
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>562,906.8</sap:VirtualizedContainerService.HintSize>
-  <sap2010:WorkflowViewState.IdRef>Chrome_ReadRaign_1</sap2010:WorkflowViewState.IdRef>
+  <sap:VirtualizedContainerService.HintSize>559.2,791.6</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>C_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -35,12 +39,11 @@
       <x:String>GlobalVariablesNamespace</x:String>
       <x:String>GlobalConstantsNamespace</x:String>
       <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>System.Reflection</x:String>
       <x:String>System.ComponentModel</x:String>
       <x:String>System.Runtime.Serialization</x:String>
       <x:String>System.Xml.Serialization</x:String>
-      <x:String>UiPath.Excel.Activities</x:String>
-      <x:String>UiPath.Shared.Activities</x:String>
-      <x:String>System.Reflection</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -70,6 +73,10 @@
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
       <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
       <AssemblyReference>PresentationFramework</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
@@ -81,14 +88,6 @@
       <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
       <AssemblyReference>System.Private.Xml</AssemblyReference>
-      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
-      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
-      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
-      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
-      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
-      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
-      <AssemblyReference>UiPath.Workflow</AssemblyReference>
-      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
       <AssemblyReference>System.Collections</AssemblyReference>
       <AssemblyReference>NPOI</AssemblyReference>
       <AssemblyReference>System.Console</AssemblyReference>
@@ -96,46 +95,37 @@
       <AssemblyReference>System.Security.Permissions</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>System.Private.Uri</AssemblyReference>
-      <AssemblyReference>System.CodeDom</AssemblyReference>
-      <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
-      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Chrome_Excel" sap:VirtualizedContainerService.HintSize="546,841.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="strTotalSubject" />
-    </Sequence.Variables>
+  <Sequence DisplayName="C" sap:VirtualizedContainerService.HintSize="546,726.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:CopyFile ContinueOnError="{x:Null}" Destination="[in_Config(&quot;저장파일경로&quot;).ToString+in_Config(&quot;파일명&quot;).ToString]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="484,158.8" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[in_Config(&quot;템플릿파일경로&quot;).ToString]" />
-    <Assign sap:VirtualizedContainerService.HintSize="484,82.4" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign DisplayName="총 합계 | Assign" sap:VirtualizedContainerService.HintSize="484,82.4" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
-        <OutArgument x:TypeArguments="x:String">[strTotalSubject]</OutArgument>
+        <OutArgument x:TypeArguments="x:Double">[out_monthTotal]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:String">[Today.ToString("yyyy년 MM월 자료")]</InArgument>
+        <InArgument x:TypeArguments="x:Double">[io_dt_TotalSheet.AsEnumerable().sum(function(x) CDbl(x("집행액")))]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="날짜입력 + 종합시트 읽기 | Excel Application Scope" sap:VirtualizedContainerService.HintSize="484,409.2" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" WorkbookPath="[in_Config(&quot;저장파일경로&quot;).ToString+in_Config(&quot;파일명&quot;).ToString]">
+    <ui:LogMessage DisplayName="monthTotal값 확인 | Log Message" sap:VirtualizedContainerService.HintSize="484,143.6" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;monthTotal : &quot; + out_monthTotal.ToString]" />
+    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="dt값 저장하기" sap:VirtualizedContainerService.HintSize="484,309.2" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" WorkbookPath="[in_Config(&quot;저장파일경로&quot;).ToString+in_Config(&quot;파일명&quot;).ToString]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,299.2" sap2010:WorkflowViewState.IdRef="Sequence_2">
-            <Sequence.Variables>
-              <Variable x:TypeArguments="scg:List(x:String)" Name="sheetsName" />
-            </Sequence.Variables>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,199.2" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:ExcelWriteCell Cell="B1" DisplayName="해당날짜 종합시트제목에 입력 | Write Cell" sap:VirtualizedContainerService.HintSize="388,88" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_2" SheetName="종합" Text="[strTotalSubject.ToString]" />
-            <ui:ExcelReadRange AddHeaders="True" DataTable="[out_dt_TotalSheet]" DisplayName="종합시트만 읽어오기 | Read Range" sap:VirtualizedContainerService.HintSize="388,60" sap2010:WorkflowViewState.IdRef="ExcelReadRange_3" Range="B2:C9" SheetName="종합" />
+            <ui:ExcelWriteCell Cell="C9" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="388,88" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_1" SheetName="종합" Text="[out_monthTotal.ToString]" />
           </Sequence>
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
